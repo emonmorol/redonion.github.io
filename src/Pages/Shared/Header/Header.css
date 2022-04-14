@@ -1,0 +1,25 @@
+nav {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 10px;
+}
+.logo-content img {
+  width: 30%;
+}
+.link-container ul {
+  display: flex;
+}
+.link-container ul li {
+  margin-right: 50px;
+  border-radius: 25px;
+  padding-bottom: 2px;
+}
+.link-container ul li:hover {
+  background-color: rgb(215, 34, 34);
+  color: white;
+}
+.link-container a {
+  padding: 5px 30px;
+  font-weight: 600;
+}
