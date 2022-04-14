@@ -5,6 +5,7 @@ import Home from "./Pages/Home/Home/Home";
 import Login from "./Pages/Login/Login";
 import Signup from "./Pages/Signup/Signup";
 import Cart from "./Pages/Cart/Cart";
+// import Footer from "./Pages/Shared/Footer/Footer";
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
         <Route path="/signup" element={<Signup />} />
         <Route path="/cart" element={<Cart />} />
       </Routes>
+      {/* <Footer /> */}
     </div>
   );
 }
