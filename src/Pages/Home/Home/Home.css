@@ -1,3 +1,11 @@
 .banner {
   z-index: -10;
 }
+.food-link-content a {
+  margin-right: 40px;
+}
+.food-link-content a:focus {
+  color: rgb(214, 42, 42);
+  padding: 2px 10px;
+  border-bottom: 3px solid rgb(214, 42, 42);
+}
