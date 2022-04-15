@@ -8,8 +8,8 @@ import OurServices from "../OurServices/OurServices";
 const Home = () => {
   return (
     <div>
-      <div className="h-screen">
-        <div>
+      <div className="h-screen w-full">
+        <div className="w-full">
           <img className="banner" src={banner} alt="" />
         </div>
         <Search />
@@ -26,7 +26,7 @@ const Home = () => {
         </div>
         <div className="mt-10">
           <Link
-            className="bg-gray-300 px-6 pt-2 pb-2 rounded-lg"
+            className="bg-gray-300 -ml-10 px-6 pt-2 pb-2 rounded-lg"
             to="/checkout"
           >
             Checkout Your Food

@@ -6,7 +6,6 @@ import "./Service.css";
 
 const Service = ({ service }) => {
   const { image, title, content, icon } = service;
-  console.log(service);
   return (
     <div className="h-auto rounded-3xl hover:bg-slate-100 hover:shadow-xl">
       <div className="w-full rounded-3xl overflow-hidden">

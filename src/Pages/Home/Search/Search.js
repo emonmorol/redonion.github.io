@@ -5,7 +5,7 @@ import React from "react";
 const Search = () => {
   return (
     <div className="relative -top-96">
-      <h1 className="text-5xl font-extrabold uppercase mb-5">
+      <h1 className="text-center text-5xl font-extrabold uppercase mb-5">
         Best Meal To Make Your Day
       </h1>
       <div className="w-1/2 mx-auto">

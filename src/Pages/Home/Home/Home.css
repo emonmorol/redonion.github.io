@@ -1,6 +1,9 @@
 .banner {
   z-index: -10;
 }
+.food-link-content {
+  margin: auto;
+}
 .food-link-content a {
   margin-right: 40px;
 }
