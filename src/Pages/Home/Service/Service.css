@@ -1,0 +1,4 @@
+.details {
+  display: grid;
+  grid-template-columns: 0.5fr 4.5fr;
+}

@@ -8,8 +8,8 @@ import Cart from "./Pages/Cart/Cart";
 import BreakFast from "./Pages/Home/BreakFast/BreakFast";
 import Lunch from "./Pages/Home/Lunch/Lunch";
 import Dinner from "./Pages/Home/Dinner/Dinner";
-import NotFound from "./Pages/NotFound/NotFound";
-// import Footer from "./Pages/Shared/Footer/Footer";
+import NotFound from "./Pages/Shared/NotFound/NotFound";
+import Footer from "./Pages/Shared/Footer/Footer";
 
 function App() {
   return (
@@ -31,7 +31,7 @@ function App() {
         <Route path="/cart" element={<Cart />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
-      {/* <Footer /> */}
+      <Footer />
     </div>
   );
 }
