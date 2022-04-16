@@ -4,8 +4,12 @@ import banner from "../../../images/bannerbackground.png";
 import { Link, Outlet } from "react-router-dom";
 import Search from "../Search/Search";
 import OurServices from "../OurServices/OurServices";
+import useCartItems from "../../../Hooks/useCartItems";
 
 const Home = () => {
+  const [cartItems] = useCartItems([]);
+  console.log(cartItems);
+
   return (
     <div>
       <div className="h-screen w-full">

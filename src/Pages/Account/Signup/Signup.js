@@ -1,6 +1,10 @@
 import React, { useState } from "react";
-import { useCreateUserWithEmailAndPassword } from "react-firebase-hooks/auth";
-import { Link } from "react-router-dom";
+import {
+  useCreateUserWithEmailAndPassword,
+  useUpdateProfile,
+} from "react-firebase-hooks/auth";
+import { Link, useNavigate } from "react-router-dom";
+import { toast, ToastContainer } from "react-toastify";
 import auth from "../../../firebase.init";
 import logo from "../../../images/logo2.png";
 import Social from "../Social/Social";
@@ -9,18 +13,37 @@ const Signup = () => {
   //Hooks
   const [createUserWithEmailAndPassword, user, loading, error] =
     useCreateUserWithEmailAndPassword(auth);
-  // console.log(user);
+  const [updateProfile, updating] = useUpdateProfile(auth);
 
   //States
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
+  const [displayName, setDisplayName] = useState();
+  const navigate = useNavigate();
+  // console.log(user);
+  let errorMessage;
+  let update;
+  if (error) {
+    errorMessage = error?.message;
+  }
+  if (updating) {
+    update = <p>Updating...</p>;
+  }
+  if (loading) {
+    return <p className="mt-10 text-3xl font-extrabold">Loading...</p>;
+  }
+  if (user) {
+    navigate("/");
+    toast("Account Created Successfully");
+  }
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
     setEmail(event.target.email.value);
     setPassword(event.target.password.value);
-
-    createUserWithEmailAndPassword(email, password);
+    setDisplayName(event.target.name.value);
+    await createUserWithEmailAndPassword(email, password);
+    await updateProfile({ displayName });
   };
 
   return (
@@ -29,6 +52,7 @@ const Signup = () => {
         <div className="w-1/2 mx-auto">
           <img className="" src={logo} alt="" />
         </div>
+        {update}
         <div>
           <h2 className="text-4xl font-extrabold uppercase my-6">
             Please Signup
@@ -116,6 +140,9 @@ const Signup = () => {
                 Reset Password
               </Link>
             </div> */}
+            <p className="text-red-600">
+              <small>{errorMessage}</small>
+            </p>
             <div className="w-full mb-1 mt-2">
               <button
                 type="submit"
@@ -135,6 +162,7 @@ const Signup = () => {
           <Social />
         </div>
       </div>
+      <ToastContainer />
     </div>
   );
 };

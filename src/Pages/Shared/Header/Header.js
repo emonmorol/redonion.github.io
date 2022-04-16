@@ -1,3 +1,5 @@
+import { faCartPlus } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { signOut } from "firebase/auth";
 import React from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
@@ -16,8 +18,21 @@ const Header = () => {
       <div className="link-container">
         <ul>
           <li>
-            <Link to="/cart">Cart</Link>
+            <Link to="/cart">
+              <FontAwesomeIcon icon={faCartPlus} />
+            </Link>
           </li>
+          {user ? (
+            <li>
+              <Link to="/profile">
+                {user?.displayName ? user.displayName : "User"}
+              </Link>
+            </li>
+          ) : (
+            <li>
+              <Link to="/signup">Signup</Link>
+            </li>
+          )}
           {user ? (
             <li onClick={() => signOut(auth)}>
               <Link to="/Login">Logout</Link>
@@ -25,13 +40,6 @@ const Header = () => {
           ) : (
             <li>
               <Link to="/Login">Login</Link>
-            </li>
-          )}
-          {user ? (
-            ""
-          ) : (
-            <li>
-              <Link to="/Login">Signup</Link>
             </li>
           )}
         </ul>

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useSignInWithEmailAndPassword } from "react-firebase-hooks/auth";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { toast, ToastContainer } from "react-toastify";
 import auth from "../../../firebase.init";
 import logo from "../../../images/logo2.png";
 import Social from "../Social/Social";
@@ -8,11 +9,25 @@ import Social from "../Social/Social";
 const Login = () => {
   const [signInWithEmailAndPassword, user, loading, error] =
     useSignInWithEmailAndPassword(auth);
-
-  //States
+  const navigate = useNavigate();
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
-  const handlelogin = (event) => {
+
+  let errorMessage;
+
+  if (error) {
+    errorMessage = error?.message;
+  }
+  if (loading) {
+    return <p className="mt-10 text-3xl font-extrabold">Loading...</p>;
+  }
+
+  if (user) {
+    toast("Login Successfully");
+    navigate("/");
+  }
+  //States
+  const handleLogin = (event) => {
     event.preventDefault();
     setEmail(event.target.email.value);
     setPassword(event.target.password.value);
@@ -29,7 +44,7 @@ const Login = () => {
           <h2 className="text-4xl font-extrabold uppercase my-6">
             Please Login
           </h2>
-          <form onSubmit={handlelogin}>
+          <form onSubmit={handleLogin}>
             <div className="flex -mx-4">
               <div className="w-full px-3 mb-2">
                 <label htmlFor="" className="text-left font-semibold px-1">
@@ -41,6 +56,7 @@ const Login = () => {
                   </div>
                   <input
                     type="email"
+                    name="email"
                     className="w-full -ml-10 pl-5 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-blue-500"
                     placeholder="Enter Your Email"
                     required
@@ -62,6 +78,7 @@ const Login = () => {
                   </div>
                   <input
                     type="password"
+                    name="password"
                     className="w-full -ml-10 pl-5 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-blue-500"
                     placeholder="Enter Your Password"
                     required
@@ -69,6 +86,9 @@ const Login = () => {
                 </div>
               </div>
             </div>
+            <p className="text-red-600">
+              <small>{errorMessage}</small>
+            </p>
             <div>
               <span className="text-sm ">Forget Password ? </span>
               <Link to="/login" className="text-sm text-blue-500">
@@ -87,13 +107,14 @@ const Login = () => {
             <div>
               <span className="text-sm ">Don't Have An Account ? </span>
               <Link to="/signup" className="text-sm text-blue-500">
-                Sing Up
+                Signup
               </Link>
             </div>
           </form>
           <Social />
         </div>
       </div>
+      <ToastContainer />
     </div>
   );
 };
