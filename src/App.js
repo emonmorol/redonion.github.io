@@ -10,13 +10,14 @@ import Lunch from "./Pages/Home/Lunch/Lunch";
 import Dinner from "./Pages/Home/Dinner/Dinner";
 import NotFound from "./Pages/Shared/NotFound/NotFound";
 import Footer from "./Pages/Shared/Footer/Footer";
-import { ToastContainer } from "react-toastify";
+// import { ToastContainer } from "react-toastify";
 import FoodDetails from "./Pages/FoodDetails/FoodDetails";
 
 function App() {
   return (
     <div className="App">
       <Header />
+      {/* <ToastContainer /> */}
       <Routes>
         <Route path="/" element={<Home />}>
           <Route path="/home/breakfast" element={<BreakFast />} />
@@ -35,7 +36,6 @@ function App() {
         <Route path="*" element={<NotFound />} />
       </Routes>
       <Footer />
-      <ToastContainer />
     </div>
   );
 }

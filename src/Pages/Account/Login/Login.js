@@ -1,37 +1,61 @@
-import React, { useState } from "react";
-import { useSignInWithEmailAndPassword } from "react-firebase-hooks/auth";
+import React, { useRef, useState } from "react";
+import {
+  useSendPasswordResetEmail,
+  useSignInWithEmailAndPassword,
+} from "react-firebase-hooks/auth";
 import { Link, useNavigate } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
 import auth from "../../../firebase.init";
 import logo from "../../../images/logo2.png";
 import Social from "../Social/Social";
+import "react-toastify/dist/ReactToastify.css";
 
 const Login = () => {
   const [signInWithEmailAndPassword, user, loading, error] =
     useSignInWithEmailAndPassword(auth);
+  const [sendPasswordResetEmail, sending, resetError] =
+    useSendPasswordResetEmail(auth);
   const navigate = useNavigate();
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
+  const emailRef = useRef("");
 
   let errorMessage;
 
-  if (error) {
-    errorMessage = error?.message;
+  if (error || resetError) {
+    errorMessage = error?.message || resetError?.message;
   }
   if (loading) {
     return <p className="mt-10 text-3xl font-extrabold">Loading...</p>;
+  }
+  if (sending) {
+    return (
+      <p className="mt-10 text-3xl font-extrabold">
+        Password Reset Mail Sending...
+      </p>
+    );
   }
 
   if (user) {
     toast("Login Successfully");
     navigate("/");
   }
-  //States
+
   const handleLogin = (event) => {
     event.preventDefault();
     setEmail(event.target.email.value);
     setPassword(event.target.password.value);
     signInWithEmailAndPassword(email, password);
+  };
+  const handleResetPassword = async (event) => {
+    const email = emailRef.current.value;
+    console.log(email);
+    if (email) {
+      await sendPasswordResetEmail(email);
+      toast("Password Reset Mail Sent");
+    } else {
+      toast("Please Input Your Mail Address");
+    }
   };
 
   return (
@@ -55,6 +79,7 @@ const Login = () => {
                     <i className="mdi mdi-lock-outline text-gray-400 text-lg"></i>
                   </div>
                   <input
+                    ref={emailRef}
                     type="email"
                     name="email"
                     className="w-full -ml-10 pl-5 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-blue-500"
@@ -91,9 +116,15 @@ const Login = () => {
             </p>
             <div>
               <span className="text-sm ">Forget Password ? </span>
-              <Link to="/login" className="text-sm text-blue-500">
-                Reset Password
-              </Link>
+              <button>
+                <Link
+                  to="/login"
+                  onClick={handleResetPassword}
+                  className="text-sm text-blue-500"
+                >
+                  Reset Password
+                </Link>
+              </button>
             </div>
             <div className="w-full mb-1 mt-2">
               <button

@@ -8,6 +8,7 @@ import { toast, ToastContainer } from "react-toastify";
 import auth from "../../../firebase.init";
 import logo from "../../../images/logo2.png";
 import Social from "../Social/Social";
+import "react-toastify/dist/ReactToastify.css";
 
 const Signup = () => {
   //Hooks
